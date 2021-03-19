@@ -3,4 +3,4 @@ project(philo_one C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(philo_one main.c get_time.c init.c lifetime.c utils.c)
+add_executable(philo_one main.c get_time.c init.c lifetime.c utils.c philo_one.c)

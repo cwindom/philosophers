@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/philo_one.dir/init.c.o"
   "CMakeFiles/philo_one.dir/lifetime.c.o"
   "CMakeFiles/philo_one.dir/main.c.o"
+  "CMakeFiles/philo_one.dir/philo_one.c.o"
   "CMakeFiles/philo_one.dir/utils.c.o"
   "philo_one"
   "philo_one.pdb"

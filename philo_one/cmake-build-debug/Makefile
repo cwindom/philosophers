@@ -251,6 +251,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/main.c.s
 .PHONY : main.c.s
 
+philo_one.o: philo_one.c.o
+
+.PHONY : philo_one.o
+
+# target to build an object file
+philo_one.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/philo_one.c.o
+.PHONY : philo_one.c.o
+
+philo_one.i: philo_one.c.i
+
+.PHONY : philo_one.i
+
+# target to preprocess a source file
+philo_one.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/philo_one.c.i
+.PHONY : philo_one.c.i
+
+philo_one.s: philo_one.c.s
+
+.PHONY : philo_one.s
+
+# target to generate assembly for a file
+philo_one.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/philo_one.c.s
+.PHONY : philo_one.c.s
+
 utils.o: utils.c.o
 
 .PHONY : utils.o
@@ -299,6 +326,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... philo_one.o"
+	@echo "... philo_one.i"
+	@echo "... philo_one.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

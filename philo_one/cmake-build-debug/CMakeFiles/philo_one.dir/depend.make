@@ -11,6 +11,8 @@ CMakeFiles/philo_one.dir/lifetime.c.o: ../lifetime.c
 CMakeFiles/philo_one.dir/main.c.o: ../main.c
 CMakeFiles/philo_one.dir/main.c.o: ../philo_one.h
 
+CMakeFiles/philo_one.dir/philo_one.c.o: ../philo_one.c
+
 CMakeFiles/philo_one.dir/utils.c.o: ../philo_one.h
 CMakeFiles/philo_one.dir/utils.c.o: ../utils.c
 

@@ -6,19 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/maria/Desktop/philosophers/philo_one/get_time.c
-philo_one.h
-/Users/maria/Desktop/philosophers/philo_one/philo_one.h
-
-/Users/maria/Desktop/philosophers/philo_one/init.c
-
-/Users/maria/Desktop/philosophers/philo_one/lifetime.c
-
-/Users/maria/Desktop/philosophers/philo_one/main.c
-philo_one.h
-/Users/maria/Desktop/philosophers/philo_one/philo_one.h
-
-/Users/maria/Desktop/philosophers/philo_one/philo_one.h
+/Users/maria/Desktop/philosophers/philo_one/philo_one.c
 unistd.h
 -
 stdlib.h
@@ -31,8 +19,4 @@ stdio.h
 -
 pthread.h
 -
-
-/Users/maria/Desktop/philosophers/philo_one/utils.c
-philo_one.h
-/Users/maria/Desktop/philosophers/philo_one/philo_one.h
 
