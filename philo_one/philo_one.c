@@ -61,16 +61,15 @@ int main(int ac, char **av)
 	pthread_mutex_t print; //один мьютекс на печать
 
 	phil = NULL;
-    if (ac == 5 || ac == 6)
-    {
+	if (ac == 5 || ac == 6)
+	{
 		parse_argv(av, &data, phil);
 		forks = init_mutex(&data); //создать вилки
 		init(&data, phil, forks, &print); //создание
 		threads(); //сами треды и все что внутри и вся работа
 		clear(&data); //очистить утечки((
-    }
-    else
-        error("wrong arguments");
-    return 0;
+	}
+	else
+		error("wrong arguments");
+	return 0;
 }
-
