@@ -1,6 +1,6 @@
 #include "philo_one.h"
 
-void parse_argv(char **av, t_data *data, t_philo *phil)
+void parse_argv(char **av, t_data *data, t_philo *phil)//возможно не нужно выделять здесь память но поч бы и нет
 {
 	int i;
 
@@ -19,7 +19,8 @@ void parse_argv(char **av, t_data *data, t_philo *phil)
 		i++;
 	}
 	//debuh
-	printf("%d, %ld, %ld, %ld", data->num_of_philo, data->time_to_die, data->time_to_eat, data->time_to_sleep);
+	printf("%d, %llu, %llu, %llu", data->num_of_philo, data->time_to_die,
+		   data->time_to_eat, data->time_to_sleep);
 	//debuh
 }
 void init_philo(t_data *data, t_philo *phil, pthread_mutex_t *forks, pthread_mutex_t *print)

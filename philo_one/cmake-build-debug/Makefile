@@ -143,6 +143,87 @@ philo_one/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/build
 .PHONY : philo_one/fast
 
+get_time.o: get_time.c.o
+
+.PHONY : get_time.o
+
+# target to build an object file
+get_time.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/get_time.c.o
+.PHONY : get_time.c.o
+
+get_time.i: get_time.c.i
+
+.PHONY : get_time.i
+
+# target to preprocess a source file
+get_time.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/get_time.c.i
+.PHONY : get_time.c.i
+
+get_time.s: get_time.c.s
+
+.PHONY : get_time.s
+
+# target to generate assembly for a file
+get_time.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/get_time.c.s
+.PHONY : get_time.c.s
+
+init.o: init.c.o
+
+.PHONY : init.o
+
+# target to build an object file
+init.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/init.c.o
+.PHONY : init.c.o
+
+init.i: init.c.i
+
+.PHONY : init.i
+
+# target to preprocess a source file
+init.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/init.c.i
+.PHONY : init.c.i
+
+init.s: init.c.s
+
+.PHONY : init.s
+
+# target to generate assembly for a file
+init.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/init.c.s
+.PHONY : init.c.s
+
+lifetime.o: lifetime.c.o
+
+.PHONY : lifetime.o
+
+# target to build an object file
+lifetime.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/lifetime.c.o
+.PHONY : lifetime.c.o
+
+lifetime.i: lifetime.c.i
+
+.PHONY : lifetime.i
+
+# target to preprocess a source file
+lifetime.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/lifetime.c.i
+.PHONY : lifetime.c.i
+
+lifetime.s: lifetime.c.s
+
+.PHONY : lifetime.s
+
+# target to generate assembly for a file
+lifetime.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/lifetime.c.s
+.PHONY : lifetime.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -170,6 +251,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/main.c.s
 .PHONY : main.c.s
 
+utils.o: utils.c.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/utils.c.o
+.PHONY : utils.c.o
+
+utils.i: utils.c.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/utils.c.i
+.PHONY : utils.c.i
+
+utils.s: utils.c.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/utils.c.s
+.PHONY : utils.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -179,9 +287,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... philo_one"
+	@echo "... get_time.o"
+	@echo "... get_time.i"
+	@echo "... get_time.s"
+	@echo "... init.o"
+	@echo "... init.i"
+	@echo "... init.s"
+	@echo "... lifetime.o"
+	@echo "... lifetime.i"
+	@echo "... lifetime.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 
