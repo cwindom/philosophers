@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <sys/wait.h>
 #include <stdio.h>
 #include <pthread.h>
 
@@ -9,18 +8,15 @@ int		g_alive;
 
 typedef struct			s_data
 {
-	time_t			time_to_eat;
-	time_t			time_to_sleep;
-	time_t			time_to_die;
-
-	time_t start;
-	unsigned int		times_to_eat;
-	unsigned int		num_of_phil;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		write_lock;
-	pthread_mutex_t		death_lock;
-}						t_data;
-
+	int				num;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_eat;
+	long			start;
+	pthread_mutex_t	*forks;
+	//pthread_mutex_t	print;
+}					t_data;
 typedef struct			s_phil
 {
 	int					id;
@@ -28,11 +24,14 @@ typedef struct			s_phil
 	int					r_fork;
 	int					full;
 	unsigned int		has_eaten;
-	time_t			last_meal;
+	time_t				last_meal;
 	int					eating;
-	pthread_t			*tid;
+	pthread_t			*threads;
+	pthread_mutex_t	print;
 	t_data				*data;
+
 }						t_phil;
+
 
 time_t mygettimeofday()
 {
@@ -43,21 +42,9 @@ time_t mygettimeofday()
 	t = time.tv_sec * 1000 + time.tv_usec / 1000;
 	return (t);
 }
-int			ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 void error(char *err)
 {
 	printf("Error: %s\n", err);
-	//write(1, "Error: ", 7);
-	//write(1, err, ft_strlen(err));
-	//write(1, "\n", 1);
 	exit(1);
 }
 int	atoi_philo(const char *str)
@@ -79,20 +66,12 @@ int	atoi_philo(const char *str)
 
 void	write_message(t_phil *phil, char *str)
 {
-	pthread_mutex_lock(&phil->data->write_lock);
+	//pthread_mutex_lock(&phil->data->print);
+	pthread_mutex_lock(&phil->print);
 	printf("%ld %d %s", mygettimeofday() - phil->data->start, phil->id + 1, str);
-	//ft_putnbr_fd(mygettimeofday() - phil->data->start, 1);
-	write(1, " ", 1);
-	//ft_putnbr_fd(phil->id + 1, 1);
-	//write(1, str, ft_strlen(str));
-	pthread_mutex_unlock(&phil->data->write_lock);
+	//pthread_mutex_unlock(&phil->data->print);
+	pthread_mutex_unlock(&phil->print);
 }
-int		write_error(char *str)
-{
-	write(1, str, ft_strlen(str));
-	return (1);
-}
-
 static int	check_for_death(t_phil *phil, t_data *data, int i)
 {
 	time_t	now;
@@ -101,29 +80,25 @@ static int	check_for_death(t_phil *phil, t_data *data, int i)
 	if ((!phil[i].eating) &&
 		(now > (phil[i].last_meal + data->time_to_die)))
 	{
-		pthread_mutex_lock(&phil->data->write_lock);
+		//pthread_mutex_lock(&phil->data->print);
+		pthread_mutex_lock(&phil->print);
 		g_alive = 0;
 		printf("%ld %d died\n", mygettimeofday() - phil->data->start, phil->id + 1);
-		//ft_putnbr_fd(mygettimeofday() - phil->data->start, 1, );
-		//write(1, " ", 1);
-		//ft_putnbr_fd(phil->id + 1, 1);
-		//write(1, " died\n", 6);
 		return (1);
 	}
 	return (0);
 }
-
 static int	check_if_eatten_enough(t_phil *phil, unsigned int count)
 {
-	if (count == phil->data->num_of_phil)
+	if (count == phil->data->num)
 	{
-		pthread_mutex_lock(&phil->data->write_lock);
+		//pthread_mutex_lock(&phil->data->print);
+		pthread_mutex_lock(&phil->print);
 		write(1, "Philosophers has eaten enough\n", 30);
 		return (1);
 	}
 	return (0);
 }
-
 void		*check_state(void *arg)
 {
 	t_phil 			*phil;
@@ -135,27 +110,28 @@ void		*check_state(void *arg)
 	{
 		i = 0;
 		count = 0;
-		while (i < phil->data->num_of_phil)
+		while (i < phil->data->num)
 		{
 			if (check_for_death(phil, phil->data, i))
-				return ((void*)0);
-			if (phil->data->times_to_eat)
+				return (NULL);
+			if (phil->data->num_eat)
 			{
 				if (phil[i].full)
 					count++;
 				if (check_if_eatten_enough(phil, count))
-					return ((void*)0);
+					return (NULL);
 			}
 			i++;
 		}
 	}
 }
+
 static void	count_meals(t_phil *phil)
 {
-	if (phil->data->times_to_eat)
+	if (phil->data->num_eat)
 	{
 		phil->has_eaten++;
-		if (phil->data->times_to_eat == phil->has_eaten)
+		if (phil->data->num_eat == phil->has_eaten)
 			phil->full = 1;
 	}
 }
@@ -200,8 +176,9 @@ static void	*action(void *arg)
 		g_alive ? sleeping(phil) : 0;
 		g_alive ? write_message(phil, " is thinking\n") : 0;
 	}
-	return ((void*)0);
+	return (NULL);
 }
+
 void		*start_threads(t_data *data, t_phil *phil)
 {
 	unsigned int	i;
@@ -209,99 +186,103 @@ void		*start_threads(t_data *data, t_phil *phil)
 
 	i = 0;
 	data->start = mygettimeofday();
-	while (i < data->num_of_phil)
+	while (i < data->num)
 	{
-		pthread_create(phil[i].tid, NULL, action, (void *)&phil[i]);
-		pthread_detach(*phil[i].tid);
+		pthread_create(phil[i].threads, NULL, action, (void *)&phil[i]);
+		pthread_detach(*phil[i].threads);
 		usleep(100);
 		i++;
 	}
 	pthread_create(&tid, NULL, &check_state, (void *)phil);
 	pthread_join(tid, NULL);
 	usleep(100000);
-	return ((void*)0);
+	return (NULL);
 }
-//void		free_all(t_all *all)
-//{
-//	unsigned int i;
-//
-//	i = 0;
-//	if (all->data->forks)
-//	{
-//		while (i < all->data->num_of_phil)
-//		{
-//			pthread_mutex_destroy(&all->data->forks[i]);
-//			i++;
-//		}
-//	}
-//	pthread_mutex_destroy(&all->data->write_lock);
-//	free(all->data->forks);
-//	if (all->phil)
-//		free(all->phil);
-//	all->phil = NULL;
-//}
-t_phil 	*init_phil(t_phil *phi, t_data *data)
+void		free_all(t_phil *phil, t_data *data)
 {
-	int i = 0;
-	t_phil *phil;
-	phil = malloc(sizeof(t_phil) * data->num_of_phil);
-	while (i < data->num_of_phil)
+	unsigned int i;
+
+	i = 0;
+	if (data->forks)
 	{
-		phil[i].data = data;
-		phil[i].id = i;
-		phil[i].l_fork = i;
-		phil[i].r_fork = (i + 1) % data->num_of_phil;
-		phil[i].last_meal = 0;
-		phil[i].eating = 0;
-		phil[i].has_eaten = 0;
-		phil[i].full = 0;
-		phil[i].tid = malloc(sizeof(pthread_t) * 100);
+		while (i < data->num)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+	}
+	//pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&phil->print);
+	free(data->forks);
+	if (phil)
+		free(phil);
+	phil = NULL;
+}
+t_phil 	*init_phil(t_data *d) //пофиксить поля структуры
+{
+	int i;
+	t_phil *p;
+
+	i = 0;
+	p = malloc(sizeof(t_phil) * d->num);
+	while (i < d->num)
+	{
+		p[i].data = d;
+		p[i].id = i;
+		p[i].l_fork = i;
+		p[i].r_fork = (i + 1) % d->num;
+		p[i].last_meal = 0;
+		p[i].eating = 0;
+		p[i].has_eaten = 0;
+		p[i].full = 0;
+		p[i].threads = malloc(sizeof(pthread_t));
 		i++;
 	}
-
-	return phil;
+	pthread_mutex_init(&p->print, NULL);
+	return p;
 }
-void		init_vars(char **argv, int argc, t_data *data, t_phil *phil)
+void		parse_argv(char **av, t_data *d)
 {
 	unsigned int i;
 
 	i = 0;
 	g_alive = 1;
-	pthread_mutex_init(&data->write_lock, NULL);
-	pthread_mutex_init(&data->death_lock, NULL);
-	data->num_of_phil = atoi_philo(argv[1]);
-	data->time_to_die = atoi_philo(argv[2]);
-	data->time_to_eat = atoi_philo(argv[3]);
-	data->time_to_sleep = atoi_philo(argv[4]);
-	if (argc == 6)
-		data->times_to_eat = atoi_philo(argv[5]);
+	//pthread_mutex_init(&d->print, NULL);
+	d->num = atoi_philo(av[1]);
+	d->time_to_die = atoi_philo(av[2]);
+	d->time_to_eat = atoi_philo(av[3]);
+	d->time_to_sleep = atoi_philo(av[4]);
+	if (av[5])
+		d->num_eat = atoi_philo(av[5]);
 	else
-		data->times_to_eat = 0;
+		d->num_eat = 0;
+	if (d->num > 200 || d->time_to_die < 60 || d->time_to_sleep < 60)
+		error("wrong arguments");
 	//phil = (t_phil *)malloc(sizeof(t_phil ) * data->num_of_phil);
-	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) *
-												 data->num_of_phil);
-	while (i < data->num_of_phil)
+	d->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * d->num);
+	while (i < d->num)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&d->forks[i], NULL);
 		i++;
 	}
-	printf("%d, %llu, %llu, %llu", data->num_of_phil, data->time_to_die,
-		   data->time_to_eat, data->time_to_sleep);
 }
-int			main(int argc, char **argv)
+
+int			main(int ac, char **av)
 {
-	t_data			data;
-	t_phil			*phil;
+	t_data d;
+	t_phil *p;
 
-	if (argc < 5 || argc > 6)
-		return (write_error("wrong number of arguments\n"));
-	init_vars(argv, argc, &data, phil);
-	if (data.num_of_phil > 200 || data.time_to_die < 60 || data.time_to_sleep< 60)
-		return (0);
-
-		phil = init_phil(phil, &data);
-	start_threads(&data, phil);
-	//free_all(&all);
+	if (ac == 5 || ac == 6)
+	{
+		p = NULL;
+		//pthread_mutex_init(&p->print, NULL);
+		parse_argv(av, &d);
+		p = init_phil(&d);
+		start_threads(&d, p);
+		//free_all(&all);
+	}
+	else
+		error("wrong arguments");
 	return (0);
 }
 
