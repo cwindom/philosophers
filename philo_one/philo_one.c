@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <pthread.h>
 
-int		g_alive;
-
 typedef struct			s_data
 {
 	int				num;
@@ -13,24 +11,26 @@ typedef struct			s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_eat;
-	long			start;
-	pthread_mutex_t	*forks;
+	long			time_start;
 	pthread_mutex_t	print;
+	pthread_mutex_t	*forks;
+	int				death;
 }					t_data;
-typedef struct			s_phil
-{
-	int i;
-	int					id;
-	int					l_fork;
-	int					r_fork;
-	int					full;
-	unsigned int		has_eaten;
-	time_t				last_meal;
-	int					eating;
-	pthread_t			*threads;
-	//pthread_mutex_t	print;
-	t_data				*data;
 
+typedef struct	s_phil
+{
+	int			i;
+	int			id;
+	int			left;
+	int			right;
+
+	int			full;
+	int			has_eaten;
+	time_t		last_meal;
+	int			eating;
+	pthread_t	*threads;
+	//pthread_mutex_t	print;
+	t_data		*data;
 }						t_phil;
 
 
@@ -89,61 +89,9 @@ void	write_message(t_phil *p, char *str)
 {
 	pthread_mutex_lock(&p->data->print);
 	//pthread_mutex_lock(&phil->print);
-	printf("%ld %d %s", mygettimeofday() - p->data->start, p->id + 1, str);
+	printf("%ld %d %s", mygettimeofday() - p->data->time_start, p->id + 1, str);
 	pthread_mutex_unlock(&p->data->print);
 	//pthread_mutex_unlock(&phil->print);
-}
-static int	check_for_death(t_phil *p, t_data *d, int i)
-{
-	time_t	now;
-
-	now = mygettimeofday();
-	if ((!p[i].eating) && (now > (p[i].last_meal + d->time_to_die)))
-	{
-		pthread_mutex_lock(&p->data->print);
-		//pthread_mutex_lock(&phil->print);
-		g_alive = 0;
-		printf("%ld %d died\n", mygettimeofday() - p->data->start, p->id + 1);
-		return (1);
-	}
-	return (0);
-}
-static int	check_if_eatten_enough(t_phil *p, unsigned int count)
-{
-	if (count == p->data->num)
-	{
-		pthread_mutex_lock(&p->data->print);
-		//pthread_mutex_lock(&phil->print);
-		write(1, "Philosophers has eaten enough\n", 30);
-		return (1);
-	}
-	return (0);
-}
-void		*check_state(void *arg)
-{
-	t_phil 			*phil;
-	unsigned int	i;
-	unsigned int	count;
-
-	phil = (t_phil *)arg;
-	while (1)
-	{
-		i = 0;
-		count = 0;
-		while (i < phil->data->num)
-		{
-			if (check_for_death(phil, phil->data, i))
-				return (NULL);
-			if (phil->data->num_eat)
-			{
-				if (phil[i].full)
-					count++;
-				if (check_if_eatten_enough(phil, count))
-					return (NULL);
-			}
-			i++;
-		}
-	}
 }
 static void	count_meals(t_phil *p)
 {
@@ -159,9 +107,9 @@ static void	eating(t_phil *p)
 	time_t start;
 	time_t finish;
 
-	pthread_mutex_lock(&p->data->forks[p->l_fork]);
+	pthread_mutex_lock(&p->data->forks[p->left]);
 	write_message(p, " has taken a fork\n");
-	pthread_mutex_lock(&p->data->forks[p->r_fork]);
+	pthread_mutex_lock(&p->data->forks[p->right]);
 	write_message(p, " has taken a fork\n");
 	p->eating = 1;
 	write_message(p, " is eating\n");
@@ -175,47 +123,97 @@ static void	eating(t_phil *p)
 	}
 	count_meals(p);
 	p->eating = 0;
-	g_alive ? pthread_mutex_unlock(&p->data->forks[p->l_fork]) : 0;
-	g_alive ? pthread_mutex_unlock(&p->data->forks[p->r_fork]) : 0;
+	if (p->data->death)
+	{
+		pthread_mutex_unlock(&p->data->forks[p->left]);
+		pthread_mutex_unlock(&p->data->forks[p->right]);
+	}
 }
 static void	sleeping(t_phil *p)
 {
 	write_message(p, " is sleeping\n");
 	usleep(p->data->time_to_sleep * 1000);
 }
+
+
+
 static void	*action(void *arg)
 {
-	t_phil		*phil;
+	t_phil		*p;
 
-	phil = (t_phil *)arg;
-	phil->last_meal = mygettimeofday();
-	while (g_alive)
+	p = (t_phil *)arg;
+	p->last_meal = mygettimeofday();
+	while (p->data->death)
 	{
-		g_alive ? eating(phil) : 0;
-		g_alive ? sleeping(phil) : 0;
-		g_alive ? write_message(phil, " is thinking\n") : 0;
+		if (p->data->death)
+			eating(p);
+		if (p->data->death)
+			sleeping(p);
+		if (p->data->death)
+			write_message(p, " is thinking\n");
+		//death ? eating(p) : 0;
+		//death ? sleeping(p) : 0;
+		//death ? write_message(p, " is thinking\n") : 0;
 	}
 	return (NULL);
 }
 
+void		*check_state(void *arg) //32 строки
+{
+	t_phil 			*p;
+	int	count;
 
+	p = (t_phil *)arg;
+	while (1)
+	{
+		p->i = -1;
+		count = 0;
+		while (++p->i < p->data->num)
+		{
+			time_t	now;
+			now = mygettimeofday();
+			if ((!p[p->i].eating) && (now > (p[p->i].last_meal +p->data->time_to_die)))
+			{
+				pthread_mutex_lock(&p->data->print);
+				p->data->death = 0;
+				printf("%ld %d died\n", mygettimeofday() - p->data->time_start, p->id + 1);
+				return (NULL);
+			}
+			if (p->data->num_eat)
+			{
+				if (p[p->i].full)
+					count++;
+				if (count == p->data->num)
+				{
+					pthread_mutex_lock(&p->data->print);
+					printf("All philosophers ate %d times\n",p->data->num_eat);
+					return (NULL);
+				}
+			}
+		}
+	}
+}
 void		*start_threads(t_data *d, t_phil *p)
 {
 	//pthread_t		tid;
-
 	p->i = 0;
-	d->start = mygettimeofday();
+	d->time_start = mygettimeofday();
 	while (p->i < d->num)
 	{
 		pthread_create(p[p->i].threads, NULL, action, (void *)&p[p->i]);
 		pthread_detach(*p[p->i].threads);
-		usleep(100);
+		usleep(200);
 		p->i++;
 	}
 //	pthread_create(&tid, NULL, &check_state, (void *)p);
 //	pthread_join(tid, NULL);
 	pthread_create(p->threads, NULL, &check_state, (void *)p);
-	pthread_join(*p->threads, NULL);
+	p->i = 0;
+	while (p->i < d->num)
+	{
+		pthread_join(*p->threads, NULL);
+		p->i++;
+	}
 	usleep(100000);
 	return (NULL);
 }
@@ -226,13 +224,14 @@ t_phil 	*init(t_data *d) //вопрос к полям структуры
 	t_phil *p;
 
 	p = malloc(sizeof(t_phil) * d->num);
+	d->death = 1;
 	p->i = 0;
 	while (p->i < d->num)
 	{
 		p[p->i].data = d;
 		p[p->i].id = p->i;
-		p[p->i].l_fork = p->i;
-		p[p->i].r_fork = (p->i + 1) % d->num;
+		p[p->i].left = p->i;
+		p[p->i].right = (p->i + 1) % d->num;
 		p[p->i].last_meal = 0;
 		p[p->i].eating = 0;
 		p[p->i].has_eaten = 0;
@@ -249,7 +248,6 @@ t_phil 	*init(t_data *d) //вопрос к полям структуры
 }
 void		parse_argv(char **av, t_data *d)//вопрос к d->num_eat = 0;
 {
-	g_alive = 1;
 	d->num = atoi_philo(av[1]);
 	d->time_to_die = atoi_philo(av[2]);
 	d->time_to_eat = atoi_philo(av[3]);
@@ -260,7 +258,6 @@ void		parse_argv(char **av, t_data *d)//вопрос к d->num_eat = 0;
 		d->num_eat = 0;
 	if (d->num > 200 || d->time_to_die < 60 || d->time_to_sleep < 60)
 		error("wrong arguments", 1);
-	//phil = (t_phil *)malloc(sizeof(t_phil ) * data->num_of_phil);
 }
 int			main(int ac, char **av) //нет вопросов)
 {
