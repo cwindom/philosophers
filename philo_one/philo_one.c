@@ -15,7 +15,7 @@ typedef struct			s_data
 	int				num_eat;
 	long			start;
 	pthread_mutex_t	*forks;
-	//pthread_mutex_t	print;
+	pthread_mutex_t	print;
 }					t_data;
 typedef struct			s_phil
 {
@@ -27,7 +27,7 @@ typedef struct			s_phil
 	time_t				last_meal;
 	int					eating;
 	pthread_t			*threads;
-	pthread_mutex_t	print;
+	//pthread_mutex_t	print;
 	t_data				*data;
 
 }						t_phil;
@@ -67,10 +67,10 @@ int	atoi_philo(const char *str)
 void	write_message(t_phil *phil, char *str)
 {
 	//pthread_mutex_lock(&phil->data->print);
-	pthread_mutex_lock(&phil->print);
+	pthread_mutex_lock(&phil->data->print);
 	printf("%ld %d %s", mygettimeofday() - phil->data->start, phil->id + 1, str);
 	//pthread_mutex_unlock(&phil->data->print);
-	pthread_mutex_unlock(&phil->print);
+	pthread_mutex_unlock(&phil->data->print);
 }
 static int	check_for_death(t_phil *phil, t_data *data, int i)
 {
@@ -81,7 +81,7 @@ static int	check_for_death(t_phil *phil, t_data *data, int i)
 		(now > (phil[i].last_meal + data->time_to_die)))
 	{
 		//pthread_mutex_lock(&phil->data->print);
-		pthread_mutex_lock(&phil->print);
+		pthread_mutex_lock(&phil->data->print);
 		g_alive = 0;
 		printf("%ld %d died\n", mygettimeofday() - phil->data->start, phil->id + 1);
 		return (1);
@@ -93,7 +93,7 @@ static int	check_if_eatten_enough(t_phil *phil, unsigned int count)
 	if (count == phil->data->num)
 	{
 		//pthread_mutex_lock(&phil->data->print);
-		pthread_mutex_lock(&phil->print);
+		pthread_mutex_lock(&phil->data->print);
 		write(1, "Philosophers has eaten enough\n", 30);
 		return (1);
 	}
@@ -211,8 +211,8 @@ void		free_all(t_phil *phil, t_data *data)
 			i++;
 		}
 	}
-	//pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&phil->print);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->print);
 	free(data->forks);
 	if (phil)
 		free(phil);
@@ -238,7 +238,6 @@ t_phil 	*init_phil(t_data *d) //пофиксить поля структуры
 		p[i].threads = malloc(sizeof(pthread_t));
 		i++;
 	}
-	pthread_mutex_init(&p->print, NULL);
 	return p;
 }
 void		parse_argv(char **av, t_data *d)
@@ -247,7 +246,7 @@ void		parse_argv(char **av, t_data *d)
 
 	i = 0;
 	g_alive = 1;
-	//pthread_mutex_init(&d->print, NULL);
+	pthread_mutex_init(&d->print, NULL);
 	d->num = atoi_philo(av[1]);
 	d->time_to_die = atoi_philo(av[2]);
 	d->time_to_eat = atoi_philo(av[3]);
@@ -275,7 +274,6 @@ int			main(int ac, char **av)
 	if (ac == 5 || ac == 6)
 	{
 		p = NULL;
-		//pthread_mutex_init(&p->print, NULL);
 		parse_argv(av, &d);
 		p = init_phil(&d);
 		start_threads(&d, p);
