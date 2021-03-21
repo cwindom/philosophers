@@ -6,15 +6,29 @@
 
 #IncludeRegexTransform: 
 
+/Users/maria/Desktop/philosophers/philo_one/init.c
+philo_one.h
+/Users/maria/Desktop/philosophers/philo_one/philo_one.h
+
 /Users/maria/Desktop/philosophers/philo_one/philo_one.c
+philo_one.h
+/Users/maria/Desktop/philosophers/philo_one/philo_one.h
+
+/Users/maria/Desktop/philosophers/philo_one/philo_one.h
 unistd.h
 -
 stdlib.h
 -
 sys/time.h
 -
+sys/wait.h
+-
 stdio.h
 -
 pthread.h
 -
+
+/Users/maria/Desktop/philosophers/philo_one/threads.c
+philo_one.h
+/Users/maria/Desktop/philosophers/philo_one/philo_one.h
 

@@ -87,13 +87,13 @@
 		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/lifetime.c">
 			<Option target="philo_one"/>
 		</Unit>
-		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/main.c">
-			<Option target="philo_one"/>
-		</Unit>
 		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/philo_one.c">
 			<Option target="philo_one"/>
 		</Unit>
 		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/philo_one.h">
+			<Option target="philo_one"/>
+		</Unit>
+		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/threads.c">
 			<Option target="philo_one"/>
 		</Unit>
 		<Unit filename="/Users/maria/Desktop/philosophers/philo_one/utils.c">

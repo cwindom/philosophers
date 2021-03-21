@@ -77,22 +77,9 @@ include CMakeFiles/philo_one.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/philo_one.dir/flags.make
 
-CMakeFiles/philo_one.dir/main.c.o: CMakeFiles/philo_one.dir/flags.make
-CMakeFiles/philo_one.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/philo_one.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/main.c.o   -c /Users/maria/Desktop/philosophers/philo_one/main.c
-
-CMakeFiles/philo_one.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_one.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/maria/Desktop/philosophers/philo_one/main.c > CMakeFiles/philo_one.dir/main.c.i
-
-CMakeFiles/philo_one.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_one.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/maria/Desktop/philosophers/philo_one/main.c -o CMakeFiles/philo_one.dir/main.c.s
-
 CMakeFiles/philo_one.dir/get_time.c.o: CMakeFiles/philo_one.dir/flags.make
 CMakeFiles/philo_one.dir/get_time.c.o: ../get_time.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/philo_one.dir/get_time.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/philo_one.dir/get_time.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/get_time.c.o   -c /Users/maria/Desktop/philosophers/philo_one/get_time.c
 
 CMakeFiles/philo_one.dir/get_time.c.i: cmake_force
@@ -105,7 +92,7 @@ CMakeFiles/philo_one.dir/get_time.c.s: cmake_force
 
 CMakeFiles/philo_one.dir/init.c.o: CMakeFiles/philo_one.dir/flags.make
 CMakeFiles/philo_one.dir/init.c.o: ../init.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/philo_one.dir/init.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/philo_one.dir/init.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/init.c.o   -c /Users/maria/Desktop/philosophers/philo_one/init.c
 
 CMakeFiles/philo_one.dir/init.c.i: cmake_force
@@ -118,7 +105,7 @@ CMakeFiles/philo_one.dir/init.c.s: cmake_force
 
 CMakeFiles/philo_one.dir/lifetime.c.o: CMakeFiles/philo_one.dir/flags.make
 CMakeFiles/philo_one.dir/lifetime.c.o: ../lifetime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/philo_one.dir/lifetime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/philo_one.dir/lifetime.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/lifetime.c.o   -c /Users/maria/Desktop/philosophers/philo_one/lifetime.c
 
 CMakeFiles/philo_one.dir/lifetime.c.i: cmake_force
@@ -131,7 +118,7 @@ CMakeFiles/philo_one.dir/lifetime.c.s: cmake_force
 
 CMakeFiles/philo_one.dir/utils.c.o: CMakeFiles/philo_one.dir/flags.make
 CMakeFiles/philo_one.dir/utils.c.o: ../utils.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/philo_one.dir/utils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/philo_one.dir/utils.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/utils.c.o   -c /Users/maria/Desktop/philosophers/philo_one/utils.c
 
 CMakeFiles/philo_one.dir/utils.c.i: cmake_force
@@ -144,7 +131,7 @@ CMakeFiles/philo_one.dir/utils.c.s: cmake_force
 
 CMakeFiles/philo_one.dir/philo_one.c.o: CMakeFiles/philo_one.dir/flags.make
 CMakeFiles/philo_one.dir/philo_one.c.o: ../philo_one.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/philo_one.dir/philo_one.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/philo_one.dir/philo_one.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/philo_one.c.o   -c /Users/maria/Desktop/philosophers/philo_one/philo_one.c
 
 CMakeFiles/philo_one.dir/philo_one.c.i: cmake_force
@@ -155,24 +142,37 @@ CMakeFiles/philo_one.dir/philo_one.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_one.dir/philo_one.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/maria/Desktop/philosophers/philo_one/philo_one.c -o CMakeFiles/philo_one.dir/philo_one.c.s
 
+CMakeFiles/philo_one.dir/threads.c.o: CMakeFiles/philo_one.dir/flags.make
+CMakeFiles/philo_one.dir/threads.c.o: ../threads.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/philo_one.dir/threads.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/philo_one.dir/threads.c.o   -c /Users/maria/Desktop/philosophers/philo_one/threads.c
+
+CMakeFiles/philo_one.dir/threads.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/philo_one.dir/threads.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/maria/Desktop/philosophers/philo_one/threads.c > CMakeFiles/philo_one.dir/threads.c.i
+
+CMakeFiles/philo_one.dir/threads.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/philo_one.dir/threads.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/maria/Desktop/philosophers/philo_one/threads.c -o CMakeFiles/philo_one.dir/threads.c.s
+
 # Object files for target philo_one
 philo_one_OBJECTS = \
-"CMakeFiles/philo_one.dir/main.c.o" \
 "CMakeFiles/philo_one.dir/get_time.c.o" \
 "CMakeFiles/philo_one.dir/init.c.o" \
 "CMakeFiles/philo_one.dir/lifetime.c.o" \
 "CMakeFiles/philo_one.dir/utils.c.o" \
-"CMakeFiles/philo_one.dir/philo_one.c.o"
+"CMakeFiles/philo_one.dir/philo_one.c.o" \
+"CMakeFiles/philo_one.dir/threads.c.o"
 
 # External object files for target philo_one
 philo_one_EXTERNAL_OBJECTS =
 
-philo_one: CMakeFiles/philo_one.dir/main.c.o
 philo_one: CMakeFiles/philo_one.dir/get_time.c.o
 philo_one: CMakeFiles/philo_one.dir/init.c.o
 philo_one: CMakeFiles/philo_one.dir/lifetime.c.o
 philo_one: CMakeFiles/philo_one.dir/utils.c.o
 philo_one: CMakeFiles/philo_one.dir/philo_one.c.o
+philo_one: CMakeFiles/philo_one.dir/threads.c.o
 philo_one: CMakeFiles/philo_one.dir/build.make
 philo_one: CMakeFiles/philo_one.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/maria/Desktop/philosophers/philo_one/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable philo_one"

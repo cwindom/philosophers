@@ -1,23 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_time.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/20 22:17:18 by cwindom           #+#    #+#             */
+/*   Updated: 2021/03/20 23:55:19 by maria            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-//time_t mygettimeofday()
-//{
-//	struct timeval	time;
-//	time_t			t;
-//
-//	gettimeofday(&time, NULL);
-//	t = time.tv_sec * 1000 + time.tv_usec / 1000;
-//	return (t);
-//}
-//static int main_for_time()
-//{
-//	//for time
-//	time_t start_time = mygettimeofday();
-//	time_t current = mygettimeofday() - start_time;
-//	printf("%ld\n", current);
-//	usleep(1000); //1000 - это одна милисекунда
-//	current = mygettimeofday() - start_time;
-//	printf("%ld", current);
-//	//end time
-//	return 0;
-//}
+long	gettime(void)
+{
+	struct timeval	time;
+	long			t;
+
+	gettimeofday(&time, NULL);
+	t = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (t);
+}

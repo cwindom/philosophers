@@ -224,33 +224,6 @@ lifetime.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/lifetime.c.s
 .PHONY : lifetime.c.s
 
-main.o: main.c.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/main.c.o
-.PHONY : main.c.o
-
-main.i: main.c.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/main.c.i
-.PHONY : main.c.i
-
-main.s: main.c.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/main.c.s
-.PHONY : main.c.s
-
 philo_one.o: philo_one.c.o
 
 .PHONY : philo_one.o
@@ -277,6 +250,33 @@ philo_one.s: philo_one.c.s
 philo_one.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/philo_one.c.s
 .PHONY : philo_one.c.s
+
+threads.o: threads.c.o
+
+.PHONY : threads.o
+
+# target to build an object file
+threads.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/threads.c.o
+.PHONY : threads.c.o
+
+threads.i: threads.c.i
+
+.PHONY : threads.i
+
+# target to preprocess a source file
+threads.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/threads.c.i
+.PHONY : threads.c.i
+
+threads.s: threads.c.s
+
+.PHONY : threads.s
+
+# target to generate assembly for a file
+threads.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/philo_one.dir/build.make CMakeFiles/philo_one.dir/threads.c.s
+.PHONY : threads.c.s
 
 utils.o: utils.c.o
 
@@ -323,12 +323,12 @@ help:
 	@echo "... lifetime.o"
 	@echo "... lifetime.i"
 	@echo "... lifetime.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... philo_one.o"
 	@echo "... philo_one.i"
 	@echo "... philo_one.s"
+	@echo "... threads.o"
+	@echo "... threads.i"
+	@echo "... threads.s"
 	@echo "... utils.o"
 	@echo "... utils.i"
 	@echo "... utils.s"

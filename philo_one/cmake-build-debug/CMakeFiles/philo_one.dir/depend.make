@@ -5,13 +5,16 @@ CMakeFiles/philo_one.dir/get_time.c.o: ../get_time.c
 CMakeFiles/philo_one.dir/get_time.c.o: ../philo_one.h
 
 CMakeFiles/philo_one.dir/init.c.o: ../init.c
+CMakeFiles/philo_one.dir/init.c.o: ../philo_one.h
 
 CMakeFiles/philo_one.dir/lifetime.c.o: ../lifetime.c
-
-CMakeFiles/philo_one.dir/main.c.o: ../main.c
-CMakeFiles/philo_one.dir/main.c.o: ../philo_one.h
+CMakeFiles/philo_one.dir/lifetime.c.o: ../philo_one.h
 
 CMakeFiles/philo_one.dir/philo_one.c.o: ../philo_one.c
+CMakeFiles/philo_one.dir/philo_one.c.o: ../philo_one.h
+
+CMakeFiles/philo_one.dir/threads.c.o: ../philo_one.h
+CMakeFiles/philo_one.dir/threads.c.o: ../threads.c
 
 CMakeFiles/philo_one.dir/utils.c.o: ../philo_one.h
 CMakeFiles/philo_one.dir/utils.c.o: ../utils.c
