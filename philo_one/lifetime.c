@@ -43,11 +43,11 @@ static void	eating(t_phil *p)
 	pthread_mutex_unlock(&p->data->print);
 	p->last_meal = gettime();
 	wait_life(p->data->time_to_eat);
-	pthread_mutex_unlock(&p->data->forks[p->right]);
-	pthread_mutex_unlock(&p->data->forks[p->left]);
-	p->is_eating = 0;
 	if (p->data->num_eat != -1)
 		p->eat_up++;
+	p->is_eating = 0;
+	pthread_mutex_unlock(&p->data->forks[p->right]);
+	pthread_mutex_unlock(&p->data->forks[p->left]);
 }
 
 static void	sleeping(t_phil *p)

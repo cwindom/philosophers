@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:29:22 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 13:11:10 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 09:57:59 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	exit_eat(t_phil *p, int count_eat)
 
 void		*start_threads(t_data *d, t_phil *p)
 {
-	d->count_eat = 0;
 	d->t_s = gettime();
 	p->i = -1;
 	while (++p->i < d->num)
@@ -52,6 +51,7 @@ void		*start_threads(t_data *d, t_phil *p)
 	while (1)
 	{
 		p->i = -1;
+		d->count_eat = 0;
 		while (++p->i < p->data->num)
 		{
 			if (exit_kill(p) == -1)
