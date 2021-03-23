@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_two.c                                        :+:      :+:    :+:   */
+/*   philo_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:58 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 14:51:39 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 22:11:14 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
+
+void		clear_leaks(t_phil *p, t_data *d)
+{
+	sem_unlink("/fork");
+	sem_unlink("/print");
+	usleep(500000);
+	if (p)
+	{
+		p->i = -1;
+		while (++p->i < d->num)
+		{
+			if(p[p->i].threads)
+				free(p[p->i].threads);
+		}
+		free(p);
+	}
+	p = NULL;
+//	sem_close(d->forks);
+//	sem_close(d->print);
+}
 
 void		parse_argv(char **av, t_data *d)
 {
@@ -35,13 +55,12 @@ int			main(int ac, char **av)
 		p = NULL;
 		parse_argv(av, &d);
 		p = init(&d);
-		start_threads(&d, p);
-		if (p)
-			free(p);
-		p = NULL;
+		d.t_s = gettime();
+		process(&d, p);
+		clear_leaks(p, &d);
 	}
 	else
 		error("wrong arguments", 1);
-	usleep(500000);
+	//usleep(500000);
 	return (0);
 }

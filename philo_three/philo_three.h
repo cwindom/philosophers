@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:18:09 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 08:41:57 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 23:22:04 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ typedef struct		s_data
 	int				time_to_sleep;
 	int				num_eat;
 	int				count_eat;
+	int 			eat;
 	long			t_s;
 	sem_t			*print;
 	sem_t			*forks;
+	sem_t			*waiter;
 }					t_data;
 
 typedef struct		s_phil
@@ -42,16 +44,17 @@ typedef struct		s_phil
 	int				eat_up;
 	long			last_meal;
 	int				is_eating;
+	pid_t 			pid;
 	pthread_t		*threads;
 	t_data			*data;
-	pid_t			pid;
 }					t_phil;
 
 long				gettime(void);
 void				error(char *err, int exitcode);
 int					atoi_philo(const char *str);
 t_phil				*init(t_data *d);
-void				*lifetime(void *arg);
-void				*start_threads(t_data *d, t_phil *p);
+int				lifetime(void *arg);
+void				wait_life(int time_to_wait);
+int process(t_data *d, t_phil *p);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 14:51:39 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 23:22:04 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-static void	wait_life(int time_to_wait)
+void	wait_life(int time_to_wait)
 {
 	long start_eat;
 	long finish_eat;
@@ -27,27 +27,34 @@ static void	wait_life(int time_to_wait)
 	usleep(10);
 }
 
+static void grabbing_forks(t_phil *p)
+{
+	sem_wait(p->data->waiter);
+	sem_wait(p->data->forks);
+	sem_wait(p->data->print);
+	printf("%ld %d has taken a fork\n", gettime() - p->data->t_s, p->id + 1);
+	sem_post(p->data->print);
+	sem_wait(p->data->forks);
+	sem_wait(p->data->print);
+	printf("%ld %d has taken a fork\n", gettime() - p->data->t_s, p->id + 1);
+	sem_post(p->data->print);
+	sem_post(p->data->waiter);
+}
+
 static void	eating(t_phil *p)
 {
-	sem_wait(p->data->forks);
-	sem_wait(p->data->print);
-	printf("%ld %d has taken a fork\n", gettime() - p->data->t_s, p->id + 1);
-	sem_post(p->data->print);
-	sem_wait(p->data->forks);
-	sem_wait(p->data->print);
-	printf("%ld %d has taken a fork\n", gettime() - p->data->t_s, p->id + 1);
-	sem_post(p->data->print);
+	grabbing_forks(p);
 	p->is_eating = 1;
 	sem_wait(p->data->print);
 	printf("%ld %d is eating\n", gettime() - p->data->t_s, p->id + 1);
 	sem_post(p->data->print);
 	p->last_meal = gettime();
 	wait_life(p->data->time_to_eat);
-	sem_post(p->data->forks);
-	sem_post(p->data->forks);
-	p->is_eating = 0;
 	if (p->data->num_eat != -1)
 		p->eat_up++;
+	p->is_eating = 0;
+	sem_post(p->data->forks);
+	sem_post(p->data->forks);
 }
 
 static void	sleeping(t_phil *p)
@@ -65,7 +72,7 @@ static void	thinking(t_phil *p)
 	sem_post(p->data->print);
 }
 
-void		*lifetime(void *arg)
+int lifetime(void *arg)
 {
 	t_phil		*p;
 
@@ -77,5 +84,5 @@ void		*lifetime(void *arg)
 		sleeping(p);
 		thinking(p);
 	}
-	return (NULL);
+	return (1);
 }
