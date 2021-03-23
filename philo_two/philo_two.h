@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:18:09 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 23:24:33 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:10:31 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ typedef struct		s_data
 	int				time_to_sleep;
 	int				num_eat;
 	int				count_eat;
+	int 			eat;
 	long			t_s;
 	sem_t			*print;
 	sem_t			*forks;
+	sem_t 			*waiter;
 }					t_data;
 
 typedef struct		s_phil

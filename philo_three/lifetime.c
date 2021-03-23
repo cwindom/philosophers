@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 23:22:04 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/23 20:30:04 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	wait_life(int time_to_wait)
 	usleep(10);
 }
 
-static void grabbing_forks(t_phil *p)
+static void	grabbing_forks(t_phil *p)
 {
 	sem_wait(p->data->waiter);
 	sem_wait(p->data->forks);
@@ -41,7 +41,7 @@ static void grabbing_forks(t_phil *p)
 	sem_post(p->data->waiter);
 }
 
-static void	eating(t_phil *p)
+void	eating(t_phil *p)
 {
 	grabbing_forks(p);
 	p->is_eating = 1;
@@ -57,7 +57,7 @@ static void	eating(t_phil *p)
 	sem_post(p->data->forks);
 }
 
-static void	sleeping(t_phil *p)
+void	sleeping(t_phil *p)
 {
 	sem_wait(p->data->print);
 	printf("%ld %d is sleeping\n", gettime() - p->data->t_s, p->id + 1);
@@ -65,24 +65,9 @@ static void	sleeping(t_phil *p)
 	wait_life(p->data->time_to_sleep);
 }
 
-static void	thinking(t_phil *p)
+void	thinking(t_phil *p)
 {
 	sem_wait(p->data->print);
 	printf("%ld %d is thinking\n", gettime() - p->data->t_s, p->id + 1);
 	sem_post(p->data->print);
-}
-
-int lifetime(void *arg)
-{
-	t_phil		*p;
-
-	p = (t_phil *)arg;
-	p->last_meal = gettime();
-	while (1)
-	{
-		eating(p);
-		sleeping(p);
-		thinking(p);
-	}
-	return (1);
 }

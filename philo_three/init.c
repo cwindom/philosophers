@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:35 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 17:13:43 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/23 19:46:13 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_phil	*init(t_data *d)
 		p[p->i].last_meal = 0;
 		p[p->i].is_eating = 0;
 		p[p->i].eat_up = 0;
-		p[p->i].threads = malloc(sizeof(pthread_t));
 	}
 	sem_unlink("/forks");
 	d->forks = sem_open("/forks", O_CREAT, 0600, d->num);
@@ -35,4 +34,3 @@ t_phil	*init(t_data *d)
 	d->waiter = sem_open("/waiter", O_CREAT, 0600, 1);
 	return (p);
 }
-

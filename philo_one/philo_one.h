@@ -28,6 +28,7 @@ typedef struct		s_data
 	int				time_to_sleep;
 	int				num_eat;
 	int				count_eat;
+	int 			eat;
 	long			t_s;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;

@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:29:22 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 14:51:39 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:08:04 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,19 @@ static int	exit_kill(t_phil *p)
 	return (1);
 }
 
-static int	exit_eat(t_phil *p, int count_eat)
+static int	exit_eat(t_phil *p)
 {
-	if (count_eat == p->data->num)
+	if (p->data->count_eat == p->data->num)
 	{
 		sem_wait(p->data->print);
-		return (-1);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 void		*start_threads(t_data *d, t_phil *p)
 {
-	d->count_eat = 0;
-	d->t_s = gettime();
+	d->eat = 0;
 	p->i = -1;
 	while (++p->i < d->num)
 	{
@@ -49,9 +48,10 @@ void		*start_threads(t_data *d, t_phil *p)
 		usleep(200);
 		pthread_detach(*p[p->i].threads);
 	}
-	while (1)
+	while (!d->eat)
 	{
 		p->i = -1;
+		d->count_eat = 0;
 		while (++p->i < p->data->num)
 		{
 			if (exit_kill(p) == -1)
@@ -60,9 +60,9 @@ void		*start_threads(t_data *d, t_phil *p)
 			{
 				if (p[p->i].eat_up == p->data->num_eat)
 					d->count_eat++;
-				if (exit_eat(p, d->count_eat) == -1)
-					return (NULL);
+				d->eat = exit_eat(p);
 			}
 		}
 	}
+	return (NULL);
 }

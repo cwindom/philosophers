@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 12:02:40 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 17:30:53 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	wait_life(int time_to_wait)
 	usleep(10);
 }
 
-static void	eating(t_phil *p)
+static void grabbing_forks(t_phil *p)
 {
 	pthread_mutex_lock(&p->data->forks[p->left]);
 	pthread_mutex_lock(&p->data->print);
@@ -37,6 +37,11 @@ static void	eating(t_phil *p)
 	pthread_mutex_lock(&p->data->print);
 	printf("%ld %d has taken a fork\n", gettime() - p->data->t_s, p->id + 1);
 	pthread_mutex_unlock(&p->data->print);
+}
+
+static void	eating(t_phil *p)
+{
+	grabbing_forks(p);
 	p->is_eating = 1;
 	pthread_mutex_lock(&p->data->print);
 	printf("%ld %d is eating\n", gettime() - p->data->t_s, p->id + 1);

@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:58 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 22:11:14 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/23 20:33:26 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,15 @@ void		clear_leaks(t_phil *p, t_data *d)
 	sem_unlink("/print");
 	usleep(500000);
 	if (p)
-	{
-		p->i = -1;
-		while (++p->i < d->num)
-		{
-			if(p[p->i].threads)
-				free(p[p->i].threads);
-		}
 		free(p);
-	}
 	p = NULL;
-//	sem_close(d->forks);
-//	sem_close(d->print);
+	sem_close(d->forks);
+	sem_close(d->print);
 }
 
 void		parse_argv(char **av, t_data *d)
 {
-	d->num_eat = -1;
+	d->num_eat = 0;
 	d->num = atoi_philo(av[1]);
 	d->time_to_die = atoi_philo(av[2]);
 	d->time_to_eat = atoi_philo(av[3]);
@@ -61,6 +53,6 @@ int			main(int ac, char **av)
 	}
 	else
 		error("wrong arguments", 1);
-	//usleep(500000);
+	usleep(250000);
 	return (0);
 }

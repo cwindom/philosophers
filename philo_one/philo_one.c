@@ -6,7 +6,7 @@
 /*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 22:17:58 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 12:29:31 by maria            ###   ########.fr       */
+/*   Updated: 2021/03/22 15:15:09 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@ void		clear_leaks(t_phil *p, t_data *d)
 		free(d->forks);
 	usleep(500000);
 	if (p)
+	{
+		p->i = -1;
+		while (++p->i < d->num)
+		{
+			if(p[p->i].threads)
+			free(p[p->i].threads);
+		}
 		free(p);
+	}
 	p = NULL;
 }
 
@@ -46,6 +54,7 @@ int			main(int ac, char **av)
 		p = NULL;
 		parse_argv(av, &d);
 		p = init(&d);
+		d.t_s = gettime();
 		start_threads(&d, p);
 		i = -1;
 		pthread_mutex_destroy(&d.print);
