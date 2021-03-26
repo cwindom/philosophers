@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lifetime.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/23 20:30:04 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_three.h"
 
-void	wait_life(int time_to_wait)
+static void	wait_life(int time_to_wait)
 {
 	long start_eat;
 	long finish_eat;
@@ -41,7 +29,7 @@ static void	grabbing_forks(t_phil *p)
 	sem_post(p->data->waiter);
 }
 
-void	eating(t_phil *p)
+void		eating(t_phil *p)
 {
 	grabbing_forks(p);
 	p->is_eating = 1;
@@ -57,7 +45,7 @@ void	eating(t_phil *p)
 	sem_post(p->data->forks);
 }
 
-void	sleeping(t_phil *p)
+void		sleeping(t_phil *p)
 {
 	sem_wait(p->data->print);
 	printf("%ld %d is sleeping\n", gettime() - p->data->t_s, p->id + 1);
@@ -65,7 +53,7 @@ void	sleeping(t_phil *p)
 	wait_life(p->data->time_to_sleep);
 }
 
-void	thinking(t_phil *p)
+void		thinking(t_phil *p)
 {
 	sem_wait(p->data->print);
 	printf("%ld %d is thinking\n", gettime() - p->data->t_s, p->id + 1);

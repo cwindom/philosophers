@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo_one.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:17:58 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 15:15:09 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_one.h"
 
 void		clear_leaks(t_phil *p, t_data *d)
@@ -22,8 +10,8 @@ void		clear_leaks(t_phil *p, t_data *d)
 		p->i = -1;
 		while (++p->i < d->num)
 		{
-			if(p[p->i].threads)
-			free(p[p->i].threads);
+			if (p[p->i].threads)
+				free(p[p->i].threads);
 		}
 		free(p);
 	}

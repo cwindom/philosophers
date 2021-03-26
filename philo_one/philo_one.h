@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo_one.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:18:09 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/21 13:08:28 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 
@@ -28,7 +16,7 @@ typedef struct		s_data
 	int				time_to_sleep;
 	int				num_eat;
 	int				count_eat;
-	int 			eat;
+	int				eat;
 	long			t_s;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
@@ -53,5 +41,6 @@ int					atoi_philo(const char *str);
 t_phil				*init(t_data *d);
 void				*lifetime(void *arg);
 void				*start_threads(t_data *d, t_phil *p);
+void				wait_life(int time_to_wait);
 
 #endif

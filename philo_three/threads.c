@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:29:22 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/23 19:50:24 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_three.h"
 
 static void	*killer(void *arg)
@@ -34,7 +22,7 @@ static void	*killer(void *arg)
 
 static int	lifetime(t_phil *p)
 {
-	pthread_t kil;
+	pthread_t	kil;
 
 	pthread_create(&kil, NULL, &killer, p);
 	p->last_meal = gettime();
@@ -52,7 +40,8 @@ static int	lifetime(t_phil *p)
 	}
 	return (1);
 }
-int		process(t_data *d, t_phil *p)
+
+int			process(t_data *d, t_phil *p)
 {
 	int status;
 

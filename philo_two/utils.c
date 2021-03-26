@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:18:19 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/20 23:52:59 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_two.h"
 
 void	error(char *err, int exitcode)
@@ -33,4 +21,19 @@ int		atoi_philo(const char *str)
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		error("please enter correct arguments", 1);
 	return (res);
+}
+
+void	wait_life(int time_to_wait)
+{
+	long start_eat;
+	long finish_eat;
+
+	start_eat = gettime();
+	finish_eat = start_eat;
+	while ((finish_eat - start_eat) < time_to_wait)
+	{
+		usleep(10);
+		finish_eat = gettime();
+	}
+	usleep(10);
 }

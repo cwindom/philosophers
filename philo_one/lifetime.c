@@ -1,33 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lifetime.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 17:30:53 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_one.h"
 
-static void	wait_life(int time_to_wait)
-{
-	long start_eat;
-	long finish_eat;
-
-	start_eat = gettime();
-	finish_eat = start_eat;
-	while ((finish_eat - start_eat) < time_to_wait)
-	{
-		usleep(10);
-		finish_eat = gettime();
-	}
-	usleep(10);
-}
-
-static void grabbing_forks(t_phil *p)
+static void	grabbing_forks(t_phil *p)
 {
 	pthread_mutex_lock(&p->data->forks[p->left]);
 	pthread_mutex_lock(&p->data->print);

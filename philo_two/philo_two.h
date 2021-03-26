@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo_two.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:18:09 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 14:10:31 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef PHILO_TWO_H
 # define PHILO_TWO_H
 
@@ -29,11 +17,11 @@ typedef struct		s_data
 	int				time_to_sleep;
 	int				num_eat;
 	int				count_eat;
-	int 			eat;
+	int				eat;
 	long			t_s;
 	sem_t			*print;
 	sem_t			*forks;
-	sem_t 			*waiter;
+	sem_t			*waiter;
 }					t_data;
 
 typedef struct		s_phil
@@ -53,5 +41,6 @@ int					atoi_philo(const char *str);
 t_phil				*init(t_data *d);
 void				*lifetime(void *arg);
 void				*start_threads(t_data *d, t_phil *p);
+void				wait_life(int time_to_wait);
 
 #endif

@@ -1,33 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lifetime.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maria <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/20 22:17:47 by cwindom           #+#    #+#             */
-/*   Updated: 2021/03/22 14:13:34 by maria            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo_two.h"
 
-static void	wait_life(int time_to_wait)
-{
-	long start_eat;
-	long finish_eat;
-
-	start_eat = gettime();
-	finish_eat = start_eat;
-	while ((finish_eat - start_eat) < time_to_wait)
-	{
-		usleep(10);
-		finish_eat = gettime();
-	}
-	usleep(10);
-}
-
-static void grabbing_forks(t_phil *p)
+static void	grabbing_forks(t_phil *p)
 {
 	sem_wait(p->data->waiter);
 	sem_wait(p->data->forks);
@@ -86,4 +59,3 @@ void		*lifetime(void *arg)
 	}
 	return (NULL);
 }
-
